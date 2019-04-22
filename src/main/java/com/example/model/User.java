@@ -1,9 +1,11 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by yaswanth on 15/03/19.
@@ -17,6 +19,10 @@ public class User {
     private String name;
 
     private String email;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id")
+    private Set<Address> addresses = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -41,4 +47,13 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
 }

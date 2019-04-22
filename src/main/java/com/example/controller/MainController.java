@@ -1,5 +1,6 @@
 package com.example.controller;
 import com.example.dao.UserDao;
+import com.example.model.Address;
 import com.example.model.User;
 import com.example.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class MainController {
         User n = new User();
         n.setName(name);
         n.setEmail(email);
+        Address address = new Address();
+        address.setAddress("testing");
+        n.getAddresses().add(address);
         userRepository.save(n);
         return "Saved";
     }
@@ -29,6 +33,7 @@ public class MainController {
     @GetMapping(path="/all")
     public Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
-        return userDao.getAll();
+//        return userDao.getAll();
+        return userRepository.findAll();
     }
 }
